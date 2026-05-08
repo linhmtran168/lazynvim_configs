@@ -12,7 +12,8 @@
 local lang = require('config.lang')
 
 vim.pack.add({
-  -- (intentionally empty in the stub; subsequent tasks add plugins here)
+  -- Colorscheme
+  { src = 'https://github.com/neanias/everforest-nvim' },
 })
 
 -- Append per-language extra_plugins so they land in the same install pass.
