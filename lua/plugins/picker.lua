@@ -13,7 +13,18 @@ snacks.setup({
   picker    = { enabled = true },
   explorer  = { enabled = true },
   notifier  = { enabled = true, timeout = 3000 },
-  dashboard = { enabled = true },
+  dashboard = {
+    enabled = true,
+    -- The default `startup` section calls require('lazy.stats') which doesn't
+    -- exist — we use vim.pack, not lazy.nvim. Provide explicit sections that
+    -- skip lazy stats but keep file/project navigation.
+    sections = {
+      { section = 'header' },
+      { icon = ' ', title = 'Keymaps',      section = 'keys',         indent = 2, padding = 1 },
+      { icon = ' ', title = 'Recent Files', section = 'recent_files', indent = 2, padding = 1 },
+      { icon = ' ', title = 'Projects',     section = 'projects',     indent = 2, padding = 1 },
+    },
+  },
   bigfile   = { enabled = true },
   scope     = { enabled = true },
   input     = { enabled = true },
