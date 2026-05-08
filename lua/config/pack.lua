@@ -32,6 +32,9 @@ vim.pack.add({
   { src = 'https://github.com/mfussenegger/nvim-lint' },
   { src = 'https://github.com/saghen/blink.cmp', version = vim.version.range('1.*') },
   { src = 'https://github.com/smjonas/inc-rename.nvim' },
+
+  -- UI / picker / explorer / notifier (Snacks bundle)
+  { src = 'https://github.com/folke/snacks.nvim' },
 })
 
 -- Append per-language extra_plugins so they land in the same install pass.
