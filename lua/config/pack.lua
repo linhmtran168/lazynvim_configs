@@ -30,6 +30,7 @@ vim.pack.add({
   -- Coding
   { src = 'https://github.com/stevearc/conform.nvim' },
   { src = 'https://github.com/mfussenegger/nvim-lint' },
+  { src = 'https://github.com/saghen/blink.cmp', version = vim.version.range('1.*') },
 })
 
 -- Append per-language extra_plugins so they land in the same install pass.
