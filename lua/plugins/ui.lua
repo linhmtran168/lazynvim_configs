@@ -16,9 +16,11 @@ local ok_lualine, lualine = pcall(require, 'lualine')
 if ok_lualine then
   lualine.setup({
     options = {
-      theme = 'auto',  -- derive colors from active colorscheme's highlight groups
-      section_separators = '',
-      component_separators = '|',
+      theme = 'everforest',
+      -- powerline-style separators: solid arrows between sections, thin arrows
+      -- between components within a section (requires a Nerd Font)
+      section_separators   = { left = '', right = '' },
+      component_separators = { left = '', right = '' },
       globalstatus = true,        -- one statusline at the bottom of all splits
     },
     sections = {
