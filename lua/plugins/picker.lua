@@ -20,6 +20,43 @@ snacks.setup({
     -- The default `startup` section calls require('lazy.stats') which doesn't
     -- exist — we use vim.pack, not lazy.nvim. Provide explicit sections that
     -- skip lazy stats but keep file/project navigation.
+    --
+    -- preset.keys overrides Snacks' default key list. We override (rather than
+    -- inherit) so the dashboard's quick actions are visible in this config —
+    -- one place to read, one place to edit. Session entries point at
+    -- persistence.nvim (see plugins/session.lua); they no-op gracefully if
+    -- persistence isn't loaded.
+    preset = {
+      keys = {
+        { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
+        { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+        { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+        {
+          icon = " ",
+          key = "c",
+          desc = "Config",
+          action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
+        },
+        {
+          icon = " ",
+          key = "s",
+          desc = "Restore Session",
+          action = function()
+            require("persistence").load()
+          end,
+        },
+        {
+          icon = " ",
+          key = "S",
+          desc = "Select Session",
+          action = function()
+            require("persistence").select()
+          end,
+        },
+        { icon = " ", key = "p", desc = "Plugins", action = ":Pack" },
+        { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+      },
+    },
     sections = {
       { section = "header" },
       { icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
