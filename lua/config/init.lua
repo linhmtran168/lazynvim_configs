@@ -31,6 +31,7 @@ end
 load("plugins.colorscheme") -- first so subsequent setups hash correct hl groups
 load("plugins.treesitter") -- early so plugins assuming TS find it ready
 load("plugins.ui")
+load("plugins.bufferline") -- after ui (mini.icons must be ready for diagnostics icons)
 load("plugins.editor")
 load("plugins.coding")
 load("plugins.picker")

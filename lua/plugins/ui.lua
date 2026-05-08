@@ -87,5 +87,6 @@ if ok_wk then
     { "<leader>u", group = "ui/toggle" },
     { "<leader>e", group = "explorer" },
     { "<leader>m", group = "marks/grapple" },
+    { "<leader><Tab>", group = "tab" },
   })
 end

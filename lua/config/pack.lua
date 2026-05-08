@@ -46,6 +46,7 @@ vim.pack.add({
   -- UI extras
   -- lualine has no real semver — only `compat-nvim-*` markers; floats.
   { src = "https://github.com/nvim-lualine/lualine.nvim" },
+  { src = "https://github.com/akinsho/bufferline.nvim", version = vim.version.range("4.*") },
   { src = "https://github.com/echasnovski/mini.icons", version = vim.version.range("0.17.*") },
   { src = "https://github.com/folke/todo-comments.nvim" },
   { src = "https://github.com/lukas-reineke/indent-blankline.nvim" },
