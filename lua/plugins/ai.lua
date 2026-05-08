@@ -25,10 +25,9 @@ end
 local ok_chat, chat = pcall(require, "CopilotChat")
 if ok_chat then
   chat.setup({
-    model = "gpt-4o",
+    model = "gpt-5.5",
     debug = false,
   })
   map({ "n", "v" }, "<leader>cc", "<cmd>CopilotChat<cr>", { desc = "Copilot Chat" })
   map({ "n", "v" }, "<leader>ce", "<cmd>CopilotChatExplain<cr>", { desc = "Copilot Explain" })
-  map({ "n", "v" }, "<leader>cq", "<cmd>CopilotChatQuickChat<cr>", { desc = "Copilot Quick Chat" })
 end
