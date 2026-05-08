@@ -19,6 +19,13 @@ vim.pack.add({
   { src = 'https://github.com/romus204/tree-sitter-manager.nvim' },
   { src = 'https://github.com/nvim-treesitter/nvim-treesitter-textobjects' },
   { src = 'https://github.com/nvim-treesitter/nvim-treesitter-context' },
+
+  -- LSP infrastructure
+  { src = 'https://github.com/williamboman/mason.nvim' },
+  { src = 'https://github.com/williamboman/mason-lspconfig.nvim' },
+  { src = 'https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim' },
+  { src = 'https://github.com/neovim/nvim-lspconfig' },
+  { src = 'https://github.com/folke/lazydev.nvim' },
 })
 
 -- Append per-language extra_plugins so they land in the same install pass.
