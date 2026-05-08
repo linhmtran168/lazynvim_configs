@@ -54,6 +54,10 @@ vim.pack.add({
   -- Git
   { src = 'https://github.com/lewis6991/gitsigns.nvim' },
   { src = 'https://github.com/sindrets/diffview.nvim' },
+
+  -- AI
+  { src = 'https://github.com/zbirenbaum/copilot.lua' },
+  { src = 'https://github.com/CopilotC-Nvim/CopilotChat.nvim' },
 })
 
 -- Append per-language extra_plugins so they land in the same install pass.
