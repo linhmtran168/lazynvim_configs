@@ -55,7 +55,8 @@ if ok_blink then
       default = { "lsp", "path", "snippets", "buffer" },
     },
     cmdline = {
-      sources = {},  -- empty = blink picks sensible defaults for : / ? completion
+      -- default auto_show only fires inside the cmdline window (q:), not the : prompt
+      completion = { menu = { auto_show = true } },
     },
   })
 end
