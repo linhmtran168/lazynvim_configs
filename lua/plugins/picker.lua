@@ -61,7 +61,7 @@ map('n', '<leader>bl', function() Snacks.picker.buffers() end, { desc = 'Buffer 
 -- ---------- Terminal (<C-/>) --------------------------------------------------
 -- <C-/> toggles a floating terminal in both normal and terminal mode.
 -- <Esc><Esc> exits terminal mode without closing it.
-map({ 'n', 't' }, '<C-/>', function() Snacks.terminal.toggle() end, { desc = 'Toggle Terminal' })
+map({ 'n', 't' }, '<C-`>', function() Snacks.terminal.toggle() end, { desc = 'Toggle Terminal' })
 map('t', '<Esc><Esc>',   '<C-\\><C-n>', { desc = 'Exit Terminal Mode' })
 map('t', '<C-c><C-c>', '<C-\\><C-n>', { desc = 'Exit Terminal Mode' })
 
