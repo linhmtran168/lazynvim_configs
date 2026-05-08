@@ -69,11 +69,29 @@ end
 -- :Pack* commands — minimal lazy.nvim parity.
 -- ----------------------------------------------------------------------------
 
+-- Helper: read the manifest's set of plugin names by re-reading vim.pack.get()
+-- after vim.pack.add has run. (vim.pack tracks every plugin we've registered.)
+local function manifest_names()
+  local names = {}
+  for _, p in ipairs(vim.pack.get()) do
+    names[p.spec.name or vim.fn.fnamemodify(p.spec.src, ':t:r')] = true
+  end
+  return names
+end
+
 -- :Pack — scratch buffer listing installed plugins with version + status.
 vim.api.nvim_create_user_command('Pack', function()
-  local lines = { 'Installed plugins (vim.pack.get):', '' }
+  local lines = {
+    'Installed plugins (vim.pack.get):',
+    'Press q to close.',
+    '',
+    string.format('  %-40s  %-12s  %s', 'name', 'status', 'src'),
+    string.format('  %-40s  %-12s  %s', string.rep('-', 40), string.rep('-', 12), string.rep('-', 40)),
+  }
   for _, p in ipairs(vim.pack.get()) do
-    table.insert(lines, ('  %-40s  %s'):format(p.spec.name or p.spec.src, p.active and 'active' or 'inactive'))
+    local name = p.spec.name or vim.fn.fnamemodify(p.spec.src, ':t:r')
+    local status = p.active and 'active' or 'inactive'
+    table.insert(lines, string.format('  %-40s  %-12s  %s', name, status, p.spec.src))
   end
   vim.cmd('new')
   vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
@@ -82,6 +100,7 @@ vim.api.nvim_create_user_command('Pack', function()
   vim.bo.swapfile = false
   vim.bo.modifiable = false
   vim.cmd('file [Pack]')
+  vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = true })
 end, { desc = 'Show installed plugins' })
 
 -- :PackUpdate — fetch + apply updates for everything in the manifest.
@@ -92,8 +111,28 @@ end, { desc = 'Update all plugins' })
 -- :PackClean — remove plugins present on disk but absent from the manifest.
 -- Compares vim.pack.get() against names referenced in the manifest call(s).
 vim.api.nvim_create_user_command('PackClean', function()
-  -- Implementation deferred until manifest has entries; placeholder.
-  vim.notify('PackClean: not yet implemented (manifest is empty)', vim.log.levels.INFO)
+  -- Find directories under <data>/site/pack/core/opt/ that aren't in the manifest.
+  local pack_dir = vim.fn.stdpath('data') .. '/site/pack/core/opt'
+  if vim.fn.isdirectory(pack_dir) == 0 then
+    vim.notify('No plugins on disk yet.', vim.log.levels.INFO)
+    return
+  end
+  local managed = manifest_names()
+  local unmanaged = {}
+  for _, dir in ipairs(vim.fn.readdir(pack_dir)) do
+    if not managed[dir] then table.insert(unmanaged, dir) end
+  end
+  if #unmanaged == 0 then
+    vim.notify('Nothing to clean — all plugins on disk are in the manifest.', vim.log.levels.INFO)
+    return
+  end
+  local choice = vim.fn.confirm(
+    'Remove unmanaged plugins?\n  ' .. table.concat(unmanaged, '\n  '),
+    '&Yes\n&No', 2)
+  if choice == 1 then
+    vim.pack.del(unmanaged)
+    vim.notify(('Removed %d unmanaged plugin(s).'):format(#unmanaged))
+  end
 end, { desc = 'Remove unmanaged plugins' })
 
 -- :PackLog — tail the most recent update log written by :PackUpdate.
