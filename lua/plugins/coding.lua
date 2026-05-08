@@ -52,3 +52,7 @@ if ok_blink then
     },
   })
 end
+
+-- ---------- inc-rename — live-preview LSP rename ------------------------------
+local ok_inc, inc = pcall(require, 'inc_rename')
+if ok_inc then inc.setup() end
