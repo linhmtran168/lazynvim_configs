@@ -43,6 +43,10 @@ vim.pack.add({
   -- UI / picker / explorer / notifier (Snacks bundle)
   { src = "https://github.com/folke/snacks.nvim", version = "stable" },
 
+  -- Session persistence (per-cwd restore via <leader>q*)
+  -- No "stable" tag upstream; tracks default branch.
+  { src = "https://github.com/folke/persistence.nvim" },
+
   -- UI extras
   -- lualine has no real semver — only `compat-nvim-*` markers; floats.
   { src = "https://github.com/nvim-lualine/lualine.nvim" },
