@@ -35,6 +35,12 @@ vim.pack.add({
 
   -- UI / picker / explorer / notifier (Snacks bundle)
   { src = 'https://github.com/folke/snacks.nvim' },
+
+  -- UI extras
+  { src = 'https://github.com/nvim-lualine/lualine.nvim' },
+  { src = 'https://github.com/echasnovski/mini.icons' },
+  { src = 'https://github.com/folke/todo-comments.nvim' },
+  { src = 'https://github.com/lukas-reineke/indent-blankline.nvim' },
 })
 
 -- Append per-language extra_plugins so they land in the same install pass.
