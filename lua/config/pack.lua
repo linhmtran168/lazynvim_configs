@@ -14,6 +14,11 @@ local lang = require('config.lang')
 vim.pack.add({
   -- Colorscheme
   { src = 'https://github.com/neanias/everforest-nvim' },
+
+  -- Treesitter
+  { src = 'https://github.com/romus204/tree-sitter-manager.nvim' },
+  { src = 'https://github.com/nvim-treesitter/nvim-treesitter-textobjects' },
+  { src = 'https://github.com/nvim-treesitter/nvim-treesitter-context' },
 })
 
 -- Append per-language extra_plugins so they land in the same install pass.
