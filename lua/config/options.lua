@@ -68,3 +68,16 @@ opt.swapfile = false
 -- Disable some built-in plugins we don't use to shave a millisecond or two.
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+
+-- ---------- Diagnostic UI -----------------------------------------------------
+-- Default `virtual_text = true` shows the full message on every line that has
+-- a diagnostic, which gets noisy in dense files. `virtual_lines.current_line`
+-- (Neovim 0.11+) shows the full diagnostic only on the cursor line as floating
+-- lines below the code; other lines keep their gutter sign. Best of both.
+vim.diagnostic.config({
+  severity_sort = true,
+  virtual_text = false,
+  virtual_lines = { current_line = true },
+  float = { border = "rounded", source = true },
+  underline = { severity = vim.diagnostic.severity.ERROR },
+})
