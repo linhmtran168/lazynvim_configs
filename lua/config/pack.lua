@@ -26,6 +26,10 @@ vim.pack.add({
   { src = 'https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim' },
   { src = 'https://github.com/neovim/nvim-lspconfig' },
   { src = 'https://github.com/folke/lazydev.nvim' },
+
+  -- Coding
+  { src = 'https://github.com/stevearc/conform.nvim' },
+  { src = 'https://github.com/mfussenegger/nvim-lint' },
 })
 
 -- Append per-language extra_plugins so they land in the same install pass.
