@@ -4,13 +4,15 @@
 -- there is no LazyVim anymore — direct setup() + colorscheme call.
 -- ============================================================================
 
-local ok, everforest = pcall(require, 'everforest')
-if not ok then return end
+local ok, everforest = pcall(require, "everforest")
+if not ok then
+  return
+end
 
 everforest.setup({
-  background = 'medium',     -- soft | medium | hard
+  background = "medium", -- soft | medium | hard
   italics = true,
-  ui_contrast = 'low',
+  ui_contrast = "low",
   diagnostic_text_highlight = true,
   diagnostic_line_highlight = false,
   spell_foreground = false,
@@ -18,4 +20,4 @@ everforest.setup({
 
 -- Apply. Wrap in pcall so a missing colorscheme doesn't abort startup
 -- (e.g. on first run before vim.pack has finished cloning).
-pcall(vim.cmd.colorscheme, 'everforest')
+pcall(vim.cmd.colorscheme, "everforest")

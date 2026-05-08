@@ -9,15 +9,15 @@ return {
     lua_ls = {
       settings = {
         Lua = {
-          completion = { callSnippet = 'Replace' },
+          completion = { callSnippet = "Replace" },
           workspace = { checkThirdParty = false },
           telemetry = { enable = false },
-          diagnostics = { globals = { 'vim' } },
+          diagnostics = { globals = { "vim" } },
         },
       },
     },
   },
-  formatters_by_ft = { lua = { 'stylua' } },
-  parsers          = { 'lua', 'luadoc', 'vim', 'vimdoc', 'query' },
-  mason_tools      = { 'lua-language-server', 'stylua' },
+  formatters_by_ft = { lua = { "stylua" } },
+  parsers = { "lua", "luadoc", "vim", "vimdoc", "query" },
+  mason_tools = { "lua-language-server", "stylua" },
 }

@@ -3,8 +3,8 @@
 -- ============================================================================
 
 return {
-  servers     = { taplo = {} },
-  formatters_by_ft = { toml = { 'taplo' } },
-  parsers     = { 'toml' },
-  mason_tools = { 'taplo' },
+  servers = { taplo = {} },
+  formatters_by_ft = { toml = { "taplo" } },
+  parsers = { "toml" },
+  mason_tools = { "taplo" },
 }

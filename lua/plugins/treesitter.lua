@@ -14,9 +14,9 @@
 -- manage parsers through the TUI or via ensure_installed in setup().)
 -- ============================================================================
 
-local lang = require('config.lang')
+local lang = require("config.lang")
 
-local ok, tsm = pcall(require, 'tree-sitter-manager')
+local ok, tsm = pcall(require, "tree-sitter-manager")
 if ok then
   tsm.setup({
     ensure_installed = lang.parsers, -- empty until lang/*.lua modules land
@@ -28,17 +28,17 @@ end
 
 -- Textobjects: af/if for function outer/inner, ac/ic for class.
 -- require path is 'nvim-treesitter-textobjects' (matches the lua/ dir name).
-local ok_to, to = pcall(require, 'nvim-treesitter-textobjects')
+local ok_to, to = pcall(require, "nvim-treesitter-textobjects")
 if ok_to then
   to.setup({
     select = {
       enable = true,
       lookahead = true, -- jump forward to next textobject if cursor is not inside one
       keymaps = {
-        ['af'] = '@function.outer',
-        ['if'] = '@function.inner',
-        ['ac'] = '@class.outer',
-        ['ic'] = '@class.inner',
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
       },
     },
   })
@@ -46,7 +46,7 @@ end
 
 -- Context: sticky header showing the current function/class scope. 3 lines max
 -- so it doesn't dominate the screen on nested code.
-local ok_ctx, ctx = pcall(require, 'treesitter-context')
+local ok_ctx, ctx = pcall(require, "treesitter-context")
 if ok_ctx then
   ctx.setup({ max_lines = 3 })
 end
@@ -54,4 +54,4 @@ end
 -- ---------- Treesitter manager keymaps ----------------------------------------
 -- Only :TSManager exists (no :TSUpdate/:TSInstall — use the TUI instead).
 local map = vim.keymap.set
-map('n', '<leader>lt', '<cmd>TSManager<cr>', { desc = 'Treesitter: Manager UI' })
+map("n", "<leader>lt", "<cmd>TSManager<cr>", { desc = "Treesitter: Manager UI" })

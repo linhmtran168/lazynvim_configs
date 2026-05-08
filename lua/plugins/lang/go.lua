@@ -11,8 +11,8 @@ return {
       },
     },
   },
-  formatters_by_ft = { go = { 'gofumpt', 'goimports' } },
-  linters_by_ft = { go = { 'golangcilint' } },
-  parsers     = { 'go', 'gomod', 'gosum', 'gowork' },
-  mason_tools = { 'gopls', 'gofumpt', 'goimports', 'golangci-lint' },
+  formatters_by_ft = { go = { "gofumpt", "goimports" } },
+  linters_by_ft = { go = { "golangcilint" } },
+  parsers = { "go", "gomod", "gosum", "gowork" },
+  mason_tools = { "gopls", "gofumpt", "goimports", "golangci-lint" },
 }

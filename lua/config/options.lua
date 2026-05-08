@@ -12,7 +12,9 @@ opt.relativenumber = true
 
 -- System clipboard integration. macOS: `osascript`/`pbcopy` already wired by nvim.
 -- We schedule the option write so startup isn't blocked on clipboard provider lookup.
-vim.schedule(function() opt.clipboard = 'unnamedplus' end)
+vim.schedule(function()
+  opt.clipboard = "unnamedplus"
+end)
 
 -- Search: case-insensitive unless query has uppercase ("smart").
 opt.ignorecase = true
@@ -29,7 +31,7 @@ opt.scrolloff = 8
 opt.sidescrolloff = 8
 
 -- Show diagnostics column always so text doesn't shift when one appears.
-opt.signcolumn = 'yes'
+opt.signcolumn = "yes"
 
 -- Faster CursorHold (used by LSP for hover popups, gitsigns blame, etc.).
 opt.updatetime = 250
@@ -43,10 +45,10 @@ opt.splitbelow = true
 
 -- Show special characters: tabs as "→ ", trailing spaces as "·", non-breaking as "␣".
 opt.list = true
-opt.listchars = { tab = '→ ', trail = '·', nbsp = '␣' }
+opt.listchars = { tab = "→ ", trail = "·", nbsp = "␣" }
 
 -- Live preview of substitutions in a split (`:%s/foo/bar` — see what'd change).
-opt.inccommand = 'split'
+opt.inccommand = "split"
 
 -- Highlight the cursor line so the cursor is locatable in long files.
 opt.cursorline = true
