@@ -27,6 +27,48 @@ if ok_hi then
   })
 end
 
+-- ---------- mini.pairs: auto-close () [] {} "" '' ----------------------------
+-- Inserts the closing pair on opening; <BS> deletes both; <CR> inside an empty
+-- pair opens a properly-indented block. Defaults are sensible for Lua/Go/TS;
+-- per-filetype overrides go in ftplugin/ if a language ever needs them.
+local ok_pairs, pairs_mod = pcall(require, "mini.pairs")
+if ok_pairs then
+  pairs_mod.setup()
+end
+
+-- ---------- mini.bracketed: unified ]x / [x motions --------------------------
+-- One grammar for navigating buffers (]b), diagnostics (]d), quickfix (]q),
+-- jumplist (]j), location list (]l), comments (]c), conflict markers (]x),
+-- and more. Replaces a handful of ad-hoc mappings with consistent pairs.
+-- See `:h mini.bracketed` for the full target list.
+local ok_bracketed, bracketed = pcall(require, "mini.bracketed")
+if ok_bracketed then
+  bracketed.setup()
+end
+
+-- ---------- mini.splitjoin: gS toggles one-line / multi-line arg lists -------
+-- Splits `foo(a, b, c)` into one-arg-per-line, or joins it back. Smart about
+-- trailing commas and language-specific separators (treesitter-aware where it
+-- can be).
+local ok_sj, splitjoin = pcall(require, "mini.splitjoin")
+if ok_sj then
+  splitjoin.setup()
+end
+
+-- ---------- mini.operators: gx / gr / gs / gm / g= ---------------------------
+-- gx — exchange two regions (mark first with `gxiw`, second with `gxiw` to swap)
+-- gr — replace text with register contents WITHOUT polluting the unnamed
+--      register (fixes vim's "paste over yanks the replaced text" papercut)
+-- gs — sort linewise; gm — multiply/duplicate; g= — evaluate as Lua/Vim expr
+-- We disable `gx` because it shadows nvim's built-in "open URL under cursor"
+-- (vim.ui.open). The others don't collide with anything in this config.
+local ok_ops, operators = pcall(require, "mini.operators")
+if ok_ops then
+  operators.setup({
+    exchange = { prefix = "" }, -- disable gx; keep nvim's URL opener
+  })
+end
+
 -- ---------- dial: <C-a> / <C-x> on dates, booleans, hex, etc. -----------------
 local ok_dial = pcall(require, "dial.config")
 if ok_dial then
