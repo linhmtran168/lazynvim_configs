@@ -28,33 +28,14 @@ snacks.setup({
     -- persistence isn't loaded.
     preset = {
       keys = {
-        { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-        { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-        { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
-        {
-          icon = " ",
-          key = "c",
-          desc = "Config",
-          action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
-        },
-        {
-          icon = " ",
-          key = "s",
-          desc = "Restore Session",
-          action = function()
-            require("persistence").load()
-          end,
-        },
-        {
-          icon = " ",
-          key = "S",
-          desc = "Select Session",
-          action = function()
-            require("persistence").select()
-          end,
-        },
-        { icon = " ", key = "p", desc = "Plugins", action = ":Pack" },
-        { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+        { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
+        { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+        { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+        { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
+        { icon = " ", key = "s", desc = "Restore Session", action = function() require('persistence').load() end },
+        { icon = " ", key = "S", desc = "Select Session", action = function() require('persistence').select() end },
+        { icon = "󰒲 ", key = "p", desc = "Plugins", action = ":Pack" },
+        { icon = " ", key = "q", desc = "Quit", action = ":qa" },
       },
     },
     sections = {
