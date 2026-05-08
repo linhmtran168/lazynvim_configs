@@ -29,6 +29,7 @@ snacks.setup({
   scope     = { enabled = true },
   input     = { enabled = true },
   scroll    = { enabled = false },  -- turn on if you want smooth scrolling
+  terminal  = { enabled = true },   -- floating terminal toggled via <C-/>
 })
 
 local map = vim.keymap.set
@@ -52,6 +53,16 @@ map('n', '<leader>sr', function() Snacks.picker.resume() end,           { desc =
 map('n', '<leader>ss', function() Snacks.picker.lsp_symbols() end,      { desc = 'Document Symbols' })
 map('n', '<leader>sS', function() Snacks.picker.lsp_workspace_symbols() end, { desc = 'Workspace Symbols' })
 map('n', '<leader>:',  function() Snacks.picker.command_history() end,  { desc = 'Command History' })
+
+-- ---------- Buffer list (<leader>bl) -----------------------------------------
+-- Alias for <leader>fb so the buffer group has an obvious shortcut.
+map('n', '<leader>bl', function() Snacks.picker.buffers() end, { desc = 'Buffer List' })
+
+-- ---------- Terminal (<C-/>) --------------------------------------------------
+-- <C-/> toggles a floating terminal in both normal and terminal mode.
+-- <Esc><Esc> exits terminal mode without closing it.
+map({ 'n', 't' }, '<C-/>', function() Snacks.terminal.toggle() end, { desc = 'Toggle Terminal' })
+map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit Terminal Mode' })
 
 -- ---------- Explorer (<leader>e) ----------------------------------------------
 map('n', '<leader>e', function() Snacks.explorer() end,                              { desc = 'Explorer (root)' })

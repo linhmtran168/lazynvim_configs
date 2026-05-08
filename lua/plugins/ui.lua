@@ -64,6 +64,7 @@ local ok_wk, wk = pcall(require, 'which-key')
 if ok_wk then
   wk.setup({ delay = 300 })
   wk.add({
+    { '<leader>b', group = 'buffer' },
     { '<leader>f', group = 'file' },
     { '<leader>s', group = 'search' },
     { '<leader>g', group = 'git' },
