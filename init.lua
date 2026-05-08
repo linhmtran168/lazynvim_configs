@@ -1,2 +1,3 @@
--- bootstrap lazy.nvim, LazyVim and your plugins
-require("config.lazy")
+-- Entry point. All real wiring lives in lua/config/init.lua.
+-- See docs/specs/2-kickstart-rewrite-design-20260508.md for architecture.
+require("config")

@@ -4,64 +4,77 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A personal [LazyVim](https://www.lazyvim.org/) configuration with two goals in tension:
+A personal Neovim configuration with two goals in tension:
 
 1. **Workhorse** — fast, dependable daily driver for serious engineering work.
 2. **Teaching guide** — every customization should be small, readable, and explain *why* it exists, so someone learning nvim can trace "what changes the default behavior, and how."
 
-Optimize for the second goal when they conflict. Prefer a short spec with an inline comment over a clever one-liner. Prefer overriding one LazyVim opt over copy-pasting a whole plugin block.
+Optimize for the second goal when they conflict. Prefer a short module with inline comments over a clever one-liner. Prefer a per-language module over a flat config dump.
 
-## Layout and how LazyVim wires together
+## Expertise expected when editing this repo
 
-- `init.lua` is one line: `require("config.lazy")`. It stays that way.
-- `lua/config/lazy.lua` bootstraps lazy.nvim, loads `LazyVim/LazyVim`, then imports every file under `lua/plugins/`. The order matters: LazyVim's defaults are merged first, the local `plugins/` specs layer on top.
-- `lua/config/{options,keymaps,autocmds}.lua` are LazyVim's standard extension points. Keep repo-wide editor behavior here rather than in plugin specs; they auto-load on `VeryLazy`, which makes them the right place for small workflow defaults and custom keymaps.
-- `lua/plugins/*.lua` each return a list of lazy.nvim specs. A spec whose name matches a LazyVim-provided plugin **merges/overrides** that plugin (tables deep-merge, functions replace). A spec with a new name **adds** one. This is the single most important mental model for editing this repo.
-- `lazyvim.json` is the source of truth for which LazyVim **extras** are enabled (langs, copilot, yanky, mini-surround, dial, inc-rename, …). Toggle via `:LazyExtras` — do not hand-edit unless you know why.
-- `lazy-lock.json` pins every plugin commit. Commit churn here is expected and should ship with the spec change that caused it. Use `:Lazy restore` to re-pin.
-- `.neoconf.json` enables `neodev` so `lua_ls` understands Neovim's runtime + plugin API while editing this config.
-- `stylua.toml` — 2-space indent, 120 column. Run `stylua .` before committing Lua.
+Operate as a senior Neovim engineer with deep, working knowledge of both the editor's internals and its modern Lua ecosystem. Be fluent in:
 
-## Active customizations and the reasoning behind each
+**Neovim internals**
 
-Keep this section honest: if you add a plugin or override, add a one-line rationale here.
+- The event loop and `vim.uv` (libuv); scheduling, `vim.schedule`, fast-context restrictions.
+- The runtime path; how `lua/`, `plugin/`, `ftplugin/`, `after/`, `queries/`, `colors/` are discovered.
+- Buffer/window/tab scopes (`vim.bo`, `vim.wo`, `vim.opt_local`, `vim.opt_global`); when to use which.
+- Autocmd model: `nvim_create_augroup` with `clear = true`, event ordering, `LspAttach`.
+- Keymap layers: `vim.keymap.set`, `<Plug>` mappings, `expr` mappings, when `<leader>` is captured.
+- Lua/Vimscript bridge: `vim.fn`, `vim.cmd`, `vim.api.nvim_*`.
+- Treesitter: parsers, queries, `vim.treesitter.start`, `:InspectTree`.
+- LSP client: `vim.lsp.config` (0.11+ unified API), `LspAttach`, capabilities, `mason-lspconfig`'s `automatic_enable`.
+- `:checkhealth`, `:messages`, `vim.print`, `:lua =` as the primary debugging surface.
 
-- **Colorscheme — `everforest`** (`lua/plugins/ui.lua`). Set by overriding `LazyVim/LazyVim`'s `opts.colorscheme` rather than calling `:colorscheme`, so LazyVim's startup ordering still applies. `evergarden` (spring/green variant) and `gruvbox` are installed as ready alternatives — swap by changing the opt, not by adding a new plugin.
-- **Completion — `blink.cmp`** (`lua/plugins/coding.lua`). `preset = "super-tab"` makes `<Tab>` do the obvious thing (accept/jump). The `preselect` function suppresses preselect *while a snippet is expanding* so `<Tab>` advances snippet fields instead of picking a completion item. Teaching note: this is why the callback checks `snippet_active({ direction = 1 })`.
-- **Window/pane nav — `smart-splits.nvim`** (`lua/plugins/ui.lua`). Eager-loaded (`lazy = false`) because keymaps must beat Zellij's. `<C-hjkl>` moves cursor seamlessly across nvim splits *and* Zellij panes; `<A-hjkl>` resizes with `at_edge = "wrap"`. Auto-detects Zellij — no extra config needed on that side.
-- **Picker and explorer — `Snacks`** (`lazyvim.json`, `lua/config/options.lua`). `snacks_picker` and `snacks_explorer` are the primary file/project surface so files, recent buffers, grep, projects, and the explorer panel all stay in LazyVim's native stack.
-- **Working set — `grapple.nvim`** (`lua/plugins/ui.lua`, `lua/config/keymaps.lua`). Use tags for the handful of files you bounce between repeatedly; this complements pickers by solving fast return trips instead of discovery.
-- **Optional `nvim-cmp` + `cmp-emoji` compatibility** (`lua/plugins/others.lua`). `blink.cmp` is the active engine, but this optional block adds emoji completion if an enabled extra pulls `nvim-cmp` back in. If no enabled extra still uses `nvim-cmp`, delete the block instead of letting it grow.
-- **Diff review — `diffview.nvim`** (`lua/plugins/others.lua`, `lua/config/keymaps.lua`). Keep `lazygit` for active repo operations, but use Diffview when you want in-editor diffs and file history review without leaving Neovim.
-- **`trouble.nvim`** (`lua/plugins/others.lua`). Only tweak is `use_diagnostic_signs = true` so the list mirrors the gutter.
+**Configuration ecosystem (this repo)**
 
-## Extras currently enabled (`lazyvim.json`)
+- `vim.pack` is the plugin manager. The full plugin list lives in `lua/config/pack.lua`. There is no auto-merging "extras" layer like LazyVim — anything installed appears in that file.
+- `lua/config/lang.lua` aggregates `lua/plugins/lang/*.lua` into one table. Each language module returns `{ servers, formatters_by_ft, linters_by_ft, parsers, mason_tools, extra_plugins }`. To add a language, create one file. To remove one, delete it.
+- `lua/plugins/{lsp,coding,treesitter}.lua` are pure consumers of `config.lang` — they do not reference language names directly.
+- `tree-sitter-manager.nvim` (active fork) replaces archived `nvim-treesitter`. `nvim-treesitter-textobjects` and `nvim-treesitter-context` are still maintained and live in `plugins/treesitter.lua`.
+- `blink.cmp` is the completion engine. `super-tab` preset; the preselect callback suppresses preselect during snippet expansion so `<Tab>` advances snippet fields.
+- Snacks bundle (picker, explorer, notifier, dashboard, bigfile, scope) replaces telescope/neo-tree/alpha.
 
-See `lazyvim.json` for the live list (AI, editor, coding, many langs, util). Changing it is a `:LazyExtras` action, not a manual edit — hand-edits will not round-trip cleanly.
+## Layout
+
+- `init.lua` — one line: `require('config')`.
+- `lua/config/init.lua` — boot orchestrator. Read top-to-bottom to understand load order.
+- `lua/config/options.lua` — `vim.opt.*` settings, each annotated.
+- `lua/config/keymaps.lua` — global leader keymaps. LSP keymaps live in `plugins/lsp.lua`'s `LspAttach`.
+- `lua/config/autocmds.lua` — yank highlight, restore cursor, etc.
+- `lua/config/pack.lua` — `vim.pack.add{}` manifest + `:Pack*` user commands.
+- `lua/config/lang.lua` — language aggregator (pure data).
+- `lua/plugins/<domain>.lua` — colorscheme, ui, editor, coding, lsp, treesitter, git, ai, picker.
+- `lua/plugins/lang/<name>.lua` — one file per language, fixed shape.
 
 ## Commands
 
-- `:Lazy` — plugin manager. Common actions: `sync`, `update`, `check`, `clean`, `restore`.
-- `:LazyExtras` — toggle LazyVim extras; writes `lazyvim.json`.
-- `:Mason` — install/manage LSP servers, formatters, linters, DAPs.
-- `:checkhealth` — **first stop** for any "plugin doesn't work" report. Before editing, run this.
-- `:LazyHealth`, `:LazyProfile`, `:LazyLog` — diagnose load order, startup cost, and what updated recently.
-- `:DiffviewOpen` / `:DiffviewFileHistory` — review repo diffs and file history inside Neovim.
-- `<leader>m`, `<leader>M`, `[m`, `]m` — tag, list, and cycle through the current working set with Grapple.
+- `:Pack` — scratch buffer listing installed plugins.
+- `:PackUpdate` — `vim.pack.update()` — fetch + apply updates.
+- `:PackClean` — remove plugins on disk that are not in the manifest.
+- `:PackLog` — last update log (if `:PackUpdate` was run).
+- `:Mason` — install/manage LSP servers, formatters, linters.
+- `:checkhealth` — first stop for any "plugin doesn't work" report.
+- `:LspInfo` / `<leader>cl` — show attached language servers.
+- `:DiffviewOpen`, `:DiffviewFileHistory` — in-editor diffs.
+- `<leader>m`, `<leader>M`, `[m`, `]m` — Grapple working-set tags.
 - `stylua .` — format Lua per `stylua.toml`.
-
-### First run and recovery
-
-- **Fresh clone**: just run `nvim`. `lua/config/lazy.lua` bootstraps lazy.nvim itself, then installs every pinned plugin. Colorscheme fallback is `habamax` until `everforest` is available.
-- **A plugin update broke things**: `:Lazy restore` re-pins to the committed `lazy-lock.json`. If the lockfile itself was the bad change, `git checkout HEAD~1 -- lazy-lock.json` then `:Lazy restore`.
-- **Startup feels slow**: `:Lazy profile` ranks plugins by load time; `:checkhealth lazy` flags misconfigured specs.
-
-This repo has no build, no test runner, and no CI. "Does it work?" = launch nvim, watch for errors, run `:checkhealth`.
 
 ## Conventions for edits
 
-- Match the existing spec style: return a table of specs; keep `opts` declarative; use `keys` / `event` / `cmd` / `ft` for lazy-loading rather than an imperative `config = function()` when possible.
-- Prefer overriding LazyVim's bundled plugin via `opts` merge over copy-pasting its full spec — the whole point of LazyVim is that you inherit sensible defaults.
-- When a customization is non-obvious (e.g. the blink.cmp preselect callback), leave a short inline comment explaining *what default behavior it is changing and why*. This file only works as a teaching guide if the code does too.
-- Don't introduce a new top-level file under `lua/plugins/` for a single small override — extend the topically closest existing file (`ui.lua`, `coding.lua`, `others.lua`).
-- Commit `lazy-lock.json` alongside any spec change that moves it.
+- Each file does one thing. Don't introduce a new top-level domain file for a single small change — extend the closest existing domain file.
+- Match the existing style: 2-space indent, 120 cols, `pcall`-wrap third-party `require`s in plugin modules so a missing plugin doesn't kill the whole module.
+- When a customization is non-obvious (e.g. the blink.cmp preselect callback), leave a short inline comment explaining *what default behavior is changed and why*.
+- LSP keymaps go in `plugins/lsp.lua`'s `LspAttach` callback (buffer-scoped). Picker keymaps go in `plugins/picker.lua`. Custom-plugin keymaps go in their domain file (e.g. Grapple in `editor.lua`).
+- Adding a language is creating one file in `lua/plugins/lang/`. The aggregator picks it up automatically.
+- Commit each module addition independently. The plan in `docs/plans/` is the reference cadence.
+
+## First run / recovery
+
+- **Fresh clone**: `nvk` (alias for `NVIM_APPNAME=nvim-kickstart nvim`). `vim.pack` clones every plugin on first run.
+- **A plugin update broke things**: `:PackLog` to see what changed; revert by editing the manifest's `version` pin and running `:PackUpdate`.
+- **Mason missing a tool**: `:lua require('mason-tool-installer').run_on_start()`.
+- **Startup feels slow**: `nvim --startuptime /tmp/start.log`; check load order in `lua/config/init.lua`.
+
+This repo has no build, no test runner, and no CI. "Does it work?" = launch nvk, watch for errors, run `:checkhealth`.
