@@ -16,7 +16,7 @@ local ok_lualine, lualine = pcall(require, 'lualine')
 if ok_lualine then
   lualine.setup({
     options = {
-      theme = 'everforest',
+      theme = 'auto',  -- derive colors from active colorscheme's highlight groups
       section_separators = '',
       component_separators = '|',
       globalstatus = true,        -- one statusline at the bottom of all splits
@@ -53,5 +53,22 @@ if ok_ibl then
   ibl.setup({
     indent = { char = '│' },
     scope  = { enabled = false },  -- Snacks.scope already does this
+  })
+end
+
+-- which-key: shows pending keymap completions after a configurable delay.
+-- Registers group labels so <leader>f, <leader>s, etc. show descriptions.
+local ok_wk, wk = pcall(require, 'which-key')
+if ok_wk then
+  wk.setup({ delay = 300 })
+  wk.add({
+    { '<leader>f', group = 'file' },
+    { '<leader>s', group = 'search' },
+    { '<leader>g', group = 'git' },
+    { '<leader>c', group = 'code' },
+    { '<leader>l', group = 'pack/lazy' },
+    { '<leader>u', group = 'ui/toggle' },
+    { '<leader>e', group = 'explorer' },
+    { '<leader>m', group = 'marks/grapple' },
   })
 end

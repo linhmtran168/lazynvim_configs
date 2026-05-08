@@ -41,6 +41,7 @@ vim.pack.add({
   { src = 'https://github.com/echasnovski/mini.icons' },
   { src = 'https://github.com/folke/todo-comments.nvim' },
   { src = 'https://github.com/lukas-reineke/indent-blankline.nvim' },
+  { src = 'https://github.com/folke/which-key.nvim' },
 
   -- Editor
   { src = 'https://github.com/echasnovski/mini.surround' },
