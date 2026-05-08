@@ -5,10 +5,24 @@
 -- mini.icons: provider for filetype/file/extension icons. Lualine and snacks
 -- read this provider via mini.icons.mock_nvim_web_devicons() so plugins that
 -- expect the older nvim-web-devicons API still work.
+--
+-- We surface load failures explicitly: if mini.icons silently fails to load,
+-- snacks.explorer / lualine / blink.cmp still work but show no icons, with
+-- zero diagnostic. (Happened once when vim.pack left mini.icons's working
+-- tree empty after a version-pin checkout.) The other pcall blocks in this
+-- repo stay silent because their plugins are non-critical; icons aren't.
 local ok_icons, icons = pcall(require, "mini.icons")
 if ok_icons then
   icons.setup()
   icons.mock_nvim_web_devicons()
+else
+  vim.schedule(function()
+    vim.notify(
+      ("mini.icons failed to load — file/filetype icons will be missing.\n%s"):format(icons),
+      vim.log.levels.ERROR,
+      { title = "ui" }
+    )
+  end)
 end
 
 -- lualine: minimal statusline, everforest theme picks up colors automatically.
