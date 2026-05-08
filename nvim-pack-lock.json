@@ -9,6 +9,11 @@
       "src": "https://github.com/saghen/blink.cmp",
       "version": "1.0.0 - 2.0.0"
     },
+    "bufferline.nvim": {
+      "rev": "655133c3b4c3e5e05ec549b9f8cc2894ac6f51b3",
+      "src": "https://github.com/akinsho/bufferline.nvim",
+      "version": "4.0.0 - 5.0.0"
+    },
     "conform.nvim": {
       "rev": "dca1a190aa85f9065979ef35802fb77131911106",
       "src": "https://github.com/stevearc/conform.nvim",
@@ -73,6 +78,11 @@
       "src": "https://github.com/echasnovski/mini.ai",
       "version": "0.17.0 - 0.18.0"
     },
+    "mini.bracketed": {
+      "rev": "e50e3abcf6a3a5d234f58e4a247dfb3035f30a65",
+      "src": "https://github.com/echasnovski/mini.bracketed",
+      "version": "0.17.0 - 0.18.0"
+    },
     "mini.hipatterns": {
       "rev": "9eff319bbe66adfaf781a0d0e174baa08ba94909",
       "src": "https://github.com/echasnovski/mini.hipatterns",
@@ -81,6 +91,21 @@
     "mini.icons": {
       "rev": "bac6317300e205335df425296570d84322730067",
       "src": "https://github.com/echasnovski/mini.icons",
+      "version": "0.17.0 - 0.18.0"
+    },
+    "mini.operators": {
+      "rev": "6df2fd410afd55ebd87757345031fc0af0c95068",
+      "src": "https://github.com/echasnovski/mini.operators",
+      "version": "0.17.0 - 0.18.0"
+    },
+    "mini.pairs": {
+      "rev": "d5a29b6254dad07757832db505ea5aeab9aad43a",
+      "src": "https://github.com/echasnovski/mini.pairs",
+      "version": "0.17.0 - 0.18.0"
+    },
+    "mini.splitjoin": {
+      "rev": "9fcd8856efb95a505090c3225726466494076127",
+      "src": "https://github.com/echasnovski/mini.splitjoin",
       "version": "0.17.0 - 0.18.0"
     },
     "mini.surround": {

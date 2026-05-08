@@ -43,9 +43,14 @@ vim.pack.add({
   -- UI / picker / explorer / notifier (Snacks bundle)
   { src = "https://github.com/folke/snacks.nvim", version = "stable" },
 
+  -- Session persistence (per-cwd restore via <leader>q*)
+  -- No "stable" tag upstream; tracks default branch.
+  { src = "https://github.com/folke/persistence.nvim" },
+
   -- UI extras
   -- lualine has no real semver — only `compat-nvim-*` markers; floats.
   { src = "https://github.com/nvim-lualine/lualine.nvim" },
+  { src = "https://github.com/akinsho/bufferline.nvim", version = vim.version.range("4.*") },
   { src = "https://github.com/echasnovski/mini.icons", version = vim.version.range("0.17.*") },
   { src = "https://github.com/folke/todo-comments.nvim" },
   { src = "https://github.com/lukas-reineke/indent-blankline.nvim" },
@@ -55,6 +60,10 @@ vim.pack.add({
   { src = "https://github.com/echasnovski/mini.surround", version = vim.version.range("0.17.*") },
   { src = "https://github.com/echasnovski/mini.ai", version = vim.version.range("0.17.*") },
   { src = "https://github.com/echasnovski/mini.hipatterns", version = vim.version.range("0.17.*") },
+  { src = "https://github.com/echasnovski/mini.pairs", version = vim.version.range("0.17.*") },
+  { src = "https://github.com/echasnovski/mini.bracketed", version = vim.version.range("0.17.*") },
+  { src = "https://github.com/echasnovski/mini.splitjoin", version = vim.version.range("0.17.*") },
+  { src = "https://github.com/echasnovski/mini.operators", version = vim.version.range("0.17.*") },
   { src = "https://github.com/monaqa/dial.nvim" },
   { src = "https://github.com/gbprod/yanky.nvim", version = vim.version.range("2.*") },
   { src = "https://github.com/mrjones2014/smart-splits.nvim" },

@@ -46,16 +46,35 @@ map("n", "<leader>-", "<C-w>s", { desc = "Split Window Below", remap = true })
 map("n", "<leader>|", "<C-w>v", { desc = "Split Window Right", remap = true })
 
 -- ---------- Buffers -----------------------------------------------------------
+-- Cycling (<S-h>/<S-l>) and bufferline-specific keymaps (pin, move, pick) live
+-- in plugins/bufferline.lua. [b/]b are owned by mini.bracketed (plugins/editor.lua).
+-- Below are buffer actions that are independent of bufferline.
 
-map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
-map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
-map("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
-map("n", "]b", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 map("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
-map("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Delete Buffer" })
-map("n", "<leader>bD", "<cmd>bdelete!<cr>", { desc = "Delete Buffer (force)" })
+
+-- Use Snacks.bufdelete when available — it preserves window layout (running
+-- :bdelete on the last buffer in a split closes the split too, which is rarely
+-- what you want).
+map("n", "<leader>bd", function()
+  if Snacks and Snacks.bufdelete then
+    Snacks.bufdelete()
+  else
+    vim.cmd("bdelete")
+  end
+end, { desc = "Delete Buffer" })
+map("n", "<leader>bD", function()
+  if Snacks and Snacks.bufdelete then
+    Snacks.bufdelete({ force = true })
+  else
+    vim.cmd("bdelete!")
+  end
+end, { desc = "Delete Buffer (force)" })
 map("n", "<leader>bo", function()
+  if Snacks and Snacks.bufdelete then
+    Snacks.bufdelete.other()
+    return
+  end
   local cur = vim.api.nvim_get_current_buf()
   for _, b in ipairs(vim.api.nvim_list_bufs()) do
     if b ~= cur and vim.bo[b].buflisted then
@@ -63,6 +82,20 @@ map("n", "<leader>bo", function()
     end
   end
 end, { desc = "Delete Other Buffers" })
+
+-- ---------- Tab pages ---------------------------------------------------------
+-- Vim's :tabnew creates a new tab page (a fresh window layout). Built-in
+-- gt/gT cycle between them. The <leader><Tab>... bindings below are explicit
+-- aliases for which-key discoverability and to keep parity with the buffer
+-- (<leader>b...) namespace.
+
+map("n", "<leader><Tab><Tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
+map("n", "<leader><Tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
+map("n", "<leader><Tab>o", "<cmd>tabonly<cr>", { desc = "Close Other Tabs" })
+map("n", "<leader><Tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+map("n", "<leader><Tab>[", "<cmd>tabprevious<cr>", { desc = "Prev Tab" })
+map("n", "<leader><Tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
+map("n", "<leader><Tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
 
 -- ---------- Diagnostics & quickfix --------------------------------------------
 
