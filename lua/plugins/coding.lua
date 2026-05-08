@@ -52,7 +52,18 @@ if ok_blink then
       },
     },
     sources = {
-      default = { "lsp", "path", "snippets", "buffer" },
+      -- `lazydev` feeds Neovim runtime + plugin Lua completions directly into
+      -- blink.cmp (in addition to lazydev's lua_ls library wiring in lsp.lua).
+      -- score_offset bumps lazydev results above generic LSP completions when
+      -- editing config files.
+      default = { "lsp", "path", "snippets", "buffer", "lazydev" },
+      providers = {
+        lazydev = {
+          name = "LazyDev",
+          module = "lazydev.integrations.blink",
+          score_offset = 100,
+        },
+      },
     },
     cmdline = {
       -- default auto_show only fires inside the cmdline window (q:), not the : prompt
