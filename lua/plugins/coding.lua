@@ -53,6 +53,7 @@ if ok_blink then
     },
     sources = {
       default = { "lsp", "path", "snippets", "buffer" },
+      cmdline = {},  -- enable : / ? completion using blink's built-in cmdline provider
     },
   })
 end
