@@ -56,7 +56,7 @@ Operate as a senior Neovim engineer with deep, working knowledge of both the edi
 - `:PackLog` — last update log (if `:PackUpdate` was run).
 - `:Mason` — install/manage LSP servers, formatters, linters.
 - `:checkhealth` — first stop for any "plugin doesn't work" report.
-- `:LspInfo` / `<leader>cl` — show attached language servers.
+- `:checkhealth vim.lsp` / `<leader>cl` — show attached language servers (modern replacement for `:LspInfo`).
 - `:DiffviewOpen`, `:DiffviewFileHistory` — in-editor diffs.
 - `<leader>m`, `<leader>M`, `[m`, `]m` — Grapple working-set tags.
 - `stylua .` — format Lua per `stylua.toml`.
@@ -72,9 +72,9 @@ Operate as a senior Neovim engineer with deep, working knowledge of both the edi
 
 ## First run / recovery
 
-- **Fresh clone**: `nvk` (alias for `NVIM_APPNAME=nvim-kickstart nvim`). `vim.pack` clones every plugin on first run.
+- **Fresh clone**: `nvim`. `vim.pack` clones every plugin on first run (~30-90s); Mason then background-installs LSP servers + formatters.
 - **A plugin update broke things**: `:PackLog` to see what changed; revert by editing the manifest's `version` pin and running `:PackUpdate`.
 - **Mason missing a tool**: `:lua require('mason-tool-installer').run_on_start()`.
 - **Startup feels slow**: `nvim --startuptime /tmp/start.log`; check load order in `lua/config/init.lua`.
 
-This repo has no build, no test runner, and no CI. "Does it work?" = launch nvk, watch for errors, run `:checkhealth`.
+This repo has no build, no test runner, and no CI. "Does it work?" = launch `nvim`, watch for errors, run `:checkhealth`.

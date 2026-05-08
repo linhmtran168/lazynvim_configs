@@ -1,3 +1,5 @@
+-- Docker: dockerls covers Dockerfile; docker-compose-language-service handles
+-- compose YAML (registers as the LSP for filetype `yaml.docker-compose`).
 return {
   servers = {
     dockerls = {},

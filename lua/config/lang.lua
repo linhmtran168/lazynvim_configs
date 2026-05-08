@@ -15,6 +15,11 @@
 --
 -- All fields are optional. This module merges them into one table consumed
 -- by plugins/{lsp,coding,treesitter}.lua and config/pack.lua.
+--
+-- `extra_plugins` is the escape hatch for languages that need a non-LSP
+-- companion (e.g. `rustaceanvim` for Rust, `crates.nvim` for Cargo.toml,
+-- `neotest-go` for Go test runner). Entries flow into vim.pack.add{} alongside
+-- the global manifest. Currently unused — kept as a seam for future modules.
 -- ============================================================================
 
 local M = {

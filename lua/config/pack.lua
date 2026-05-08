@@ -11,11 +11,18 @@
 
 local lang = require("config.lang")
 
+-- Version pinning policy:
+--   * `version = "stable"` / `"release"` — moving tag the maintainer updates to
+--     the latest stable release (folke, conform, which-key, gitsigns).
+--   * `vim.version.range("N.*")` — track major N, accept minor/patch updates.
+--   * `vim.version.range("0.X.*")` — for pre-1.0 plugins where minor bumps
+--     break (mini.*, grapple). Bump the minor manually after reading CHANGELOG.
+--   * No `version` — plugin lacks meaningful semver; floats on default branch.
 vim.pack.add({
   -- Colorscheme
   { src = "https://github.com/neanias/everforest-nvim" },
 
-  -- Treesitter
+  -- Treesitter (no semver — active fork; tracks default branch)
   { src = "https://github.com/romus204/tree-sitter-manager.nvim" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
@@ -28,32 +35,33 @@ vim.pack.add({
   { src = "https://github.com/folke/lazydev.nvim" },
 
   -- Coding
-  { src = "https://github.com/stevearc/conform.nvim" },
+  { src = "https://github.com/stevearc/conform.nvim", version = "stable" },
   { src = "https://github.com/mfussenegger/nvim-lint" },
   { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.*") },
   { src = "https://github.com/smjonas/inc-rename.nvim" },
 
   -- UI / picker / explorer / notifier (Snacks bundle)
-  { src = "https://github.com/folke/snacks.nvim" },
+  { src = "https://github.com/folke/snacks.nvim", version = "stable" },
 
   -- UI extras
+  -- lualine has no real semver — only `compat-nvim-*` markers; floats.
   { src = "https://github.com/nvim-lualine/lualine.nvim" },
-  { src = "https://github.com/echasnovski/mini.icons" },
+  { src = "https://github.com/echasnovski/mini.icons", version = vim.version.range("0.17.*") },
   { src = "https://github.com/folke/todo-comments.nvim" },
   { src = "https://github.com/lukas-reineke/indent-blankline.nvim" },
-  { src = "https://github.com/folke/which-key.nvim" },
+  { src = "https://github.com/folke/which-key.nvim", version = "stable" },
 
   -- Editor
-  { src = "https://github.com/echasnovski/mini.surround" },
-  { src = "https://github.com/echasnovski/mini.ai" },
-  { src = "https://github.com/echasnovski/mini.hipatterns" },
+  { src = "https://github.com/echasnovski/mini.surround", version = vim.version.range("0.17.*") },
+  { src = "https://github.com/echasnovski/mini.ai", version = vim.version.range("0.17.*") },
+  { src = "https://github.com/echasnovski/mini.hipatterns", version = vim.version.range("0.17.*") },
   { src = "https://github.com/monaqa/dial.nvim" },
-  { src = "https://github.com/gbprod/yanky.nvim" },
+  { src = "https://github.com/gbprod/yanky.nvim", version = vim.version.range("2.*") },
   { src = "https://github.com/mrjones2014/smart-splits.nvim" },
-  { src = "https://github.com/cbochs/grapple.nvim" },
+  { src = "https://github.com/cbochs/grapple.nvim", version = vim.version.range("0.30.*") },
 
   -- Git
-  { src = "https://github.com/lewis6991/gitsigns.nvim" },
+  { src = "https://github.com/lewis6991/gitsigns.nvim", version = "release" },
   { src = "https://github.com/sindrets/diffview.nvim" },
 
   -- AI

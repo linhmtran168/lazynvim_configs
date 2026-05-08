@@ -11,7 +11,8 @@
     },
     "conform.nvim": {
       "rev": "dca1a190aa85f9065979ef35802fb77131911106",
-      "src": "https://github.com/stevearc/conform.nvim"
+      "src": "https://github.com/stevearc/conform.nvim",
+      "version": "'stable'"
     },
     "copilot.lua": {
       "rev": "61784cb7a1a109d72b9cb107ee70d11bc7d095ff",
@@ -31,11 +32,13 @@
     },
     "gitsigns.nvim": {
       "rev": "dd3f588bacbeb041be6facf1742e42097f62165d",
-      "src": "https://github.com/lewis6991/gitsigns.nvim"
+      "src": "https://github.com/lewis6991/gitsigns.nvim",
+      "version": "'release'"
     },
     "grapple.nvim": {
       "rev": "b41ddfc1c39f87f3d1799b99c2f0f1daa524c5f7",
-      "src": "https://github.com/cbochs/grapple.nvim"
+      "src": "https://github.com/cbochs/grapple.nvim",
+      "version": "0.30.0 - 0.31.0"
     },
     "inc-rename.nvim": {
       "rev": "0074b551a17338ccdcd299bd86687cc651bcb33d",
@@ -67,19 +70,23 @@
     },
     "mini.ai": {
       "rev": "7e10ce8468c0fce4f527ae2c0e5c484f7667f73d",
-      "src": "https://github.com/echasnovski/mini.ai"
+      "src": "https://github.com/echasnovski/mini.ai",
+      "version": "0.17.0 - 0.18.0"
     },
     "mini.hipatterns": {
       "rev": "9eff319bbe66adfaf781a0d0e174baa08ba94909",
-      "src": "https://github.com/echasnovski/mini.hipatterns"
+      "src": "https://github.com/echasnovski/mini.hipatterns",
+      "version": "0.17.0 - 0.18.0"
     },
     "mini.icons": {
       "rev": "bac6317300e205335df425296570d84322730067",
-      "src": "https://github.com/echasnovski/mini.icons"
+      "src": "https://github.com/echasnovski/mini.icons",
+      "version": "0.17.0 - 0.18.0"
     },
     "mini.surround": {
       "rev": "2715e04bea3ec9244f15b421dc5b18c0fe326210",
-      "src": "https://github.com/echasnovski/mini.surround"
+      "src": "https://github.com/echasnovski/mini.surround",
+      "version": "0.17.0 - 0.18.0"
     },
     "nvim-lint": {
       "rev": "eab58b48eb11d7745c11c505e0f3057165902461",
@@ -107,7 +114,8 @@
     },
     "snacks.nvim": {
       "rev": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e",
-      "src": "https://github.com/folke/snacks.nvim"
+      "src": "https://github.com/folke/snacks.nvim",
+      "version": "'stable'"
     },
     "todo-comments.nvim": {
       "rev": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668",
@@ -119,11 +127,13 @@
     },
     "which-key.nvim": {
       "rev": "3aab2147e74890957785941f0c1ad87d0a44c15a",
-      "src": "https://github.com/folke/which-key.nvim"
+      "src": "https://github.com/folke/which-key.nvim",
+      "version": "'stable'"
     },
     "yanky.nvim": {
       "rev": "784188e0a7363e762e53140f39124d786aec0832",
-      "src": "https://github.com/gbprod/yanky.nvim"
+      "src": "https://github.com/gbprod/yanky.nvim",
+      "version": "2.0.0 - 3.0.0"
     }
   }
 }
