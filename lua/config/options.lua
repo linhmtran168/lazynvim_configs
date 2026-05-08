@@ -56,6 +56,24 @@ opt.cursorline = true
 -- True color — required by everforest and most modern colorschemes.
 opt.termguicolors = true
 
+-- Neovide GUI polish. Keep this guarded so terminal Neovim stays unchanged.
+if vim.g.neovide then
+  vim.g.neovide_scale_factor = 1.0
+  vim.g.neovide_padding_top = 8
+  vim.g.neovide_padding_bottom = 8
+  vim.g.neovide_padding_right = 8
+  vim.g.neovide_padding_left = 8
+
+  vim.g.neovide_cursor_animation_length = 0.06
+  vim.g.neovide_cursor_trail_size = 0.2
+  vim.g.neovide_scroll_animation_length = 0.18
+  vim.g.neovide_refresh_rate = 120
+  vim.g.neovide_refresh_rate_idle = 5
+
+  vim.g.neovide_hide_mouse_when_typing = true
+  vim.g.neovide_confirm_quit = true
+end
+
 -- Reasonable tabbing defaults; ftplugins override per language.
 opt.expandtab = true
 opt.shiftwidth = 2
