@@ -50,6 +50,10 @@ vim.pack.add({
   { src = 'https://github.com/gbprod/yanky.nvim' },
   { src = 'https://github.com/mrjones2014/smart-splits.nvim' },
   { src = 'https://github.com/cbochs/grapple.nvim' },
+
+  -- Git
+  { src = 'https://github.com/lewis6991/gitsigns.nvim' },
+  { src = 'https://github.com/sindrets/diffview.nvim' },
 })
 
 -- Append per-language extra_plugins so they land in the same install pass.
