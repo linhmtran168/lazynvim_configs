@@ -46,3 +46,29 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end
   end,
 })
+
+-- Autosave on FocusLost (nvim loses focus to another app/window). We iterate
+-- buffers explicitly instead of `:wall` so we can skip:
+--   * unnamed scratch buffers (writing them would error)
+--   * non-normal buftypes (terminal, help, quickfix — never want to write these)
+--   * unmodified buffers (avoids touching mtime, which retriggers fs watchers)
+-- `:update` already no-ops on unmodified buffers, but the explicit guard keeps
+-- intent obvious and leaves a place to add per-buffer opt-outs (e.g.
+-- `vim.b.autosave_disabled`) later without re-deriving the conditions.
+vim.api.nvim_create_autocmd("FocusLost", {
+  group = group("autosave"),
+  desc = "Write all modified, named, normal-buftype buffers",
+  callback = function()
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      if
+        vim.bo[buf].modified
+        and vim.bo[buf].buftype == ""
+        and vim.api.nvim_buf_get_name(buf) ~= ""
+      then
+        vim.api.nvim_buf_call(buf, function()
+          vim.cmd("silent! update")
+        end)
+      end
+    end
+  end,
+})
