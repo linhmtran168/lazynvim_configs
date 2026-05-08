@@ -56,6 +56,7 @@ vim.pack.add({
   { src = 'https://github.com/sindrets/diffview.nvim' },
 
   -- AI
+  { src = 'https://github.com/nvim-lua/plenary.nvim' },   -- required by CopilotChat
   { src = 'https://github.com/zbirenbaum/copilot.lua' },
   { src = 'https://github.com/CopilotC-Nvim/CopilotChat.nvim' },
 })
