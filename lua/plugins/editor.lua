@@ -14,7 +14,7 @@ end
 -- ---------- mini.ai: better text objects (af, ai, etc.) -----------------------
 local ok_ai, ai = pcall(require, "mini.ai")
 if ok_ai then
-  ai.setup({ n_lines = 500 })
+  ai.setup() -- defaults are sensible (n_lines = 500, builtin search method)
 end
 
 -- ---------- mini.hipatterns: highlight #FF0066 etc. inline --------------------
@@ -50,6 +50,10 @@ if ok_yanky then
 end
 
 -- ---------- smart-splits: <C-hjkl> across nvim splits AND Zellij panes --------
+-- Note on <A-...> resize keymaps: Meta on macOS only fires when the terminal
+-- sends Option as ESC+. Works in Zellij and iTerm2 with "Left Option as +Esc";
+-- silently does nothing in Terminal.app. If you switch terminals and resize
+-- stops working, that's why.
 local ok_smart, smart = pcall(require, "smart-splits")
 if ok_smart then
   smart.setup({
