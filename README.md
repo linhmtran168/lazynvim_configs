@@ -5,13 +5,7 @@ Personal Neovim configuration. Heavily commented, modular, beginner-readable. Na
 ## Quick start
 
 ```bash
-NVIM_APPNAME=nvim-kickstart nvim
-```
-
-Or set the alias:
-
-```fish
-alias nvk='NVIM_APPNAME=nvim-kickstart nvim'
+nvim
 ```
 
 First launch installs ~30 plugins via `vim.pack`; expect 30-90 seconds. Mason will background-install language servers and formatters after that.
