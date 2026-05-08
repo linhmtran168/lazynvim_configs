@@ -41,6 +41,15 @@ vim.pack.add({
   { src = 'https://github.com/echasnovski/mini.icons' },
   { src = 'https://github.com/folke/todo-comments.nvim' },
   { src = 'https://github.com/lukas-reineke/indent-blankline.nvim' },
+
+  -- Editor
+  { src = 'https://github.com/echasnovski/mini.surround' },
+  { src = 'https://github.com/echasnovski/mini.ai' },
+  { src = 'https://github.com/echasnovski/mini.hipatterns' },
+  { src = 'https://github.com/monaqa/dial.nvim' },
+  { src = 'https://github.com/gbprod/yanky.nvim' },
+  { src = 'https://github.com/mrjones2014/smart-splits.nvim' },
+  { src = 'https://github.com/cbochs/grapple.nvim' },
 })
 
 -- Append per-language extra_plugins so they land in the same install pass.
