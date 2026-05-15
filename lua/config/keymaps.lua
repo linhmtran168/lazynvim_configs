@@ -7,6 +7,25 @@
 
 local map = vim.keymap.set
 
+local function reload_config()
+  -- `:source $MYVIMRC` only re-runs init.lua; Lua modules loaded with require()
+  -- stay cached. Clear this config's modules so edits in lua/config and
+  -- lua/plugins are picked up without restarting Neovim.
+  for name in pairs(package.loaded) do
+    if name == "config" or name:match("^config%.") or name:match("^plugins%.") then
+      package.loaded[name] = nil
+    end
+  end
+
+  local init = vim.fn.stdpath("config") .. "/init.lua"
+  local ok, err = pcall(dofile, init)
+  if ok then
+    vim.notify("Reloaded Neovim config")
+  else
+    vim.notify(("Config reload failed: %s"):format(err), vim.log.levels.ERROR)
+  end
+end
+
 -- ---------- Universal defaults ------------------------------------------------
 
 -- Wrap-aware vertical motion: `j`/`k` on a wrapped line move display rows,
@@ -132,8 +151,9 @@ map("n", "<leader>uF", function()
   vim.notify(("Autoformat (global): %s"):format(vim.g.disable_autoformat and "OFF" or "ON"))
 end, { desc = "Toggle Autoformat (global)" })
 
--- ---------- Plugin & parser management ----------------------------------------
+-- ---------- Config / plugin / parser management -------------------------------
 
+map("n", "<leader>lr", reload_config, { desc = "Reload Neovim Config" })
 map("n", "<leader>ll", "<cmd>Pack<cr>", { desc = "Plugin Manager" })
 map("n", "<leader>lu", "<cmd>PackUpdate<cr>", { desc = "Plugin: Update all" })
 map("n", "<leader>lc", "<cmd>PackClean<cr>", { desc = "Plugin: Clean unused" })

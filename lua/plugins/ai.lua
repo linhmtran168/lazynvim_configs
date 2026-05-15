@@ -11,7 +11,7 @@ local map = vim.keymap.set
 local ok_cop, cop = pcall(require, "copilot")
 if ok_cop then
   cop.setup({
-    suggestion = { enabled = true, auto_trigger = true, keymap = { accept = "<M-l>" } },
+    suggestion = { enabled = true, auto_trigger = true, keymap = { accept = "<C-l>" } },
     panel = { enabled = false },
     filetypes = {
       markdown = true,
