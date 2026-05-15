@@ -69,6 +69,85 @@ if ok_ops then
   })
 end
 
+-- ---------- minimap.vim: fast code overview powered by code-minimap ----------
+vim.g.minimap_width = 10
+-- Use a local autocmd below instead of minimap.vim's global auto-start. The
+-- plugin's built-in hook opens on early/special buffers and can hide Snacks'
+-- startup dashboard.
+vim.g.minimap_auto_start = 0
+vim.g.minimap_auto_start_win_enter = 0
+vim.g.minimap_highlight_range = 1
+vim.g.minimap_highlight_search = 1
+vim.g.minimap_git_colors = 1
+vim.g.minimap_background_processing = 1
+vim.g.minimap_block_filetypes = {
+  "fugitive",
+  "nerdtree",
+  "tagbar",
+  "fzf",
+  "snacks_dashboard",
+  "snacks_layout_box",
+  "snacks_picker_input",
+  "snacks_picker_list",
+  "snacks_picker_preview",
+}
+vim.g.minimap_close_filetypes = { "snacks_dashboard" }
+
+local function minimap_should_open(buf)
+  if not vim.api.nvim_buf_is_valid(buf) or not vim.bo[buf].buflisted then
+    return false
+  end
+
+  local buftype = vim.bo[buf].buftype
+  local filetype = vim.bo[buf].filetype
+  local name = vim.api.nvim_buf_get_name(buf)
+
+  return buftype == "" and name ~= "" and filetype ~= "minimap" and not filetype:find("^snacks_")
+end
+
+local function minimap_auto_open()
+  vim.schedule(function()
+    local buf = vim.api.nvim_get_current_buf()
+    local filetype = vim.bo[buf].filetype
+
+    if filetype == "snacks_dashboard" then
+      vim.cmd("silent! MinimapClose")
+      return
+    end
+
+    if minimap_should_open(buf) then
+      vim.cmd("silent! Minimap")
+    end
+  end)
+end
+
+vim.api.nvim_create_autocmd({ "VimEnter", "BufWinEnter", "WinEnter" }, {
+  group = vim.api.nvim_create_augroup("config_minimap", { clear = true }),
+  callback = minimap_auto_open,
+})
+
+map("n", "<leader>um", "<cmd>MinimapToggle<cr>", { desc = "Toggle Minimap" })
+map("n", "<leader>uM", function()
+  vim.cmd("Minimap")
+
+  for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    local name = vim.api.nvim_buf_get_name(buf):lower()
+    local ft = vim.bo[buf].filetype:lower()
+
+    if name:find("minimap", 1, true) or ft == "minimap" then
+      vim.api.nvim_set_current_win(win)
+      return
+    end
+  end
+
+  vim.cmd("wincmd l")
+end, { desc = "Focus Minimap" })
+map("n", "<leader>uR", function()
+  vim.cmd("MinimapRefresh")
+  vim.cmd("MinimapUpdateHighlight")
+end, { desc = "Refresh Minimap" })
+
 -- ---------- dial: <C-a> / <C-x> on dates, booleans, hex, etc. -----------------
 local ok_dial = pcall(require, "dial.config")
 if ok_dial then

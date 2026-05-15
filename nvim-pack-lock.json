@@ -15,12 +15,12 @@
       "version": "4.0.0 - 5.0.0"
     },
     "conform.nvim": {
-      "rev": "dca1a190aa85f9065979ef35802fb77131911106",
+      "rev": "3543d000dafbc41cc7761d860cfdb24e82154f75",
       "src": "https://github.com/stevearc/conform.nvim",
       "version": "'stable'"
     },
     "copilot.lua": {
-      "rev": "61784cb7a1a109d72b9cb107ee70d11bc7d095ff",
+      "rev": "b57ee71bc6671aae055ef1911b3f72771219bb2d",
       "src": "https://github.com/zbirenbaum/copilot.lua"
     },
     "dial.nvim": {
@@ -36,12 +36,12 @@
       "src": "https://github.com/neanias/everforest-nvim"
     },
     "gitsigns.nvim": {
-      "rev": "dd3f588bacbeb041be6facf1742e42097f62165d",
+      "rev": "6ef8c54fb526bf3a0bc4efb0b2fe8e6d9a7daed2",
       "src": "https://github.com/lewis6991/gitsigns.nvim",
       "version": "'release'"
     },
     "grapple.nvim": {
-      "rev": "b41ddfc1c39f87f3d1799b99c2f0f1daa524c5f7",
+      "rev": "7aedc261b05a6c030397c4bc26416efbe746ebf1",
       "src": "https://github.com/cbochs/grapple.nvim",
       "version": "0.30.0 - 0.31.0"
     },
@@ -62,7 +62,7 @@
       "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "1423254f58a3407a5afd5ade0ccd901f3eecc6ba",
+      "rev": "51feb0ada33d18f3c5c71ffb46005dbf8b33bef4",
       "src": "https://github.com/williamboman/mason-lspconfig.nvim"
     },
     "mason-tool-installer.nvim": {
@@ -74,7 +74,7 @@
       "src": "https://github.com/williamboman/mason.nvim"
     },
     "mini.ai": {
-      "rev": "7e10ce8468c0fce4f527ae2c0e5c484f7667f73d",
+      "rev": "bfb26d9072670c3aaefab0f53024b2f3729c8083",
       "src": "https://github.com/echasnovski/mini.ai",
       "version": "0.17.0 - 0.18.0"
     },
@@ -84,12 +84,12 @@
       "version": "0.17.0 - 0.18.0"
     },
     "mini.hipatterns": {
-      "rev": "9eff319bbe66adfaf781a0d0e174baa08ba94909",
+      "rev": "add8d8abad602787377ec5d81f6b248605828e0f",
       "src": "https://github.com/echasnovski/mini.hipatterns",
       "version": "0.17.0 - 0.18.0"
     },
     "mini.icons": {
-      "rev": "bac6317300e205335df425296570d84322730067",
+      "rev": "ff2e4f1d29f659cc2bad0f9256f2f6195c6b2428",
       "src": "https://github.com/echasnovski/mini.icons",
       "version": "0.17.0 - 0.18.0"
     },
@@ -109,9 +109,13 @@
       "version": "0.17.0 - 0.18.0"
     },
     "mini.surround": {
-      "rev": "2715e04bea3ec9244f15b421dc5b18c0fe326210",
+      "rev": "88c52297ed3e69ecf9f8652837888ecc727a28ee",
       "src": "https://github.com/echasnovski/mini.surround",
       "version": "0.17.0 - 0.18.0"
+    },
+    "minimap.vim": {
+      "rev": "28c530f8e0929b73ef27c86f705ff8bcfcec97d8",
+      "src": "https://github.com/wfxr/minimap.vim"
     },
     "nvim-lint": {
       "rev": "eab58b48eb11d7745c11c505e0f3057165902461",
@@ -138,11 +142,11 @@
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
     "smart-splits.nvim": {
-      "rev": "80be31a3d2e37d32bd37794da72a4f69fce7a85f",
+      "rev": "9053ebd394c38fe55fd2f4710daec27411c34fb9",
       "src": "https://github.com/mrjones2014/smart-splits.nvim"
     },
     "snacks.nvim": {
-      "rev": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e",
+      "rev": "e6fd58c82f2f3fcddd3fe81703d47d6d48fc7b9f",
       "src": "https://github.com/folke/snacks.nvim",
       "version": "'stable'"
     },
@@ -155,12 +159,12 @@
       "src": "https://github.com/romus204/tree-sitter-manager.nvim"
     },
     "which-key.nvim": {
-      "rev": "3aab2147e74890957785941f0c1ad87d0a44c15a",
+      "rev": "fcbf4eea17cb299c02557d576f0d568878e354a4",
       "src": "https://github.com/folke/which-key.nvim",
       "version": "'stable'"
     },
     "yanky.nvim": {
-      "rev": "784188e0a7363e762e53140f39124d786aec0832",
+      "rev": "9268018e92d02650a94e39dd5f5903c542f7ea11",
       "src": "https://github.com/gbprod/yanky.nvim",
       "version": "2.0.0 - 3.0.0"
     }

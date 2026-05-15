@@ -64,6 +64,7 @@ vim.pack.add({
   { src = "https://github.com/echasnovski/mini.bracketed", version = vim.version.range("0.17.*") },
   { src = "https://github.com/echasnovski/mini.splitjoin", version = vim.version.range("0.17.*") },
   { src = "https://github.com/echasnovski/mini.operators", version = vim.version.range("0.17.*") },
+  { src = "https://github.com/wfxr/minimap.vim" },
   { src = "https://github.com/monaqa/dial.nvim" },
   { src = "https://github.com/gbprod/yanky.nvim", version = vim.version.range("2.*") },
   { src = "https://github.com/mrjones2014/smart-splits.nvim" },

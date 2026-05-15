@@ -58,12 +58,16 @@ opt.termguicolors = true
 
 -- Neovide GUI polish. Keep this guarded so terminal Neovim stays unchanged.
 if vim.g.neovide then
+  vim.g.neovide_highlight_matching_pair = true
+  vim.g.neovide_proxy_icon = true
+
   vim.g.neovide_scale_factor = 1.0
   vim.g.neovide_padding_top = 8
   vim.g.neovide_padding_bottom = 8
   vim.g.neovide_padding_right = 8
   vim.g.neovide_padding_left = 8
 
+  vim.g.neovide_cursor_vfx_mode = "pixiedust"
   vim.g.neovide_cursor_animation_length = 0.06
   vim.g.neovide_cursor_trail_size = 0.2
   vim.g.neovide_scroll_animation_length = 0.18
