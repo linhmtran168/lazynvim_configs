@@ -67,7 +67,7 @@ snacks.setup({
   bigfile = { enabled = true },
   scope = { enabled = true },
   input = { enabled = true },
-  scroll = { enabled = false }, -- turn on if you want smooth scrolling
+  scroll = { enabled = true },
   terminal = { enabled = true }, -- floating terminal toggled via <C-/>
 })
 

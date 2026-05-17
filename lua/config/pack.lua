@@ -11,6 +11,44 @@
 
 local lang = require("config.lang")
 
+-- neominimap.nvim reads `vim.g.neominimap` while vim.pack activates its plugin
+-- file, so this config must be present before the manifest is registered.
+vim.g.neominimap = {
+  auto_enable = true,
+  log_level = vim.log.levels.OFF,
+  exclude_filetypes = {
+    "bigfile",
+    "snacks_dashboard",
+    "snacks_layout_box",
+    "snacks_picker_input",
+    "snacks_picker_list",
+    "snacks_picker_preview",
+  },
+  exclude_buftypes = {
+    "nofile",
+    "nowrite",
+    "quickfix",
+    "terminal",
+    "prompt",
+  },
+  buf_filter = function(buf)
+    return vim.api.nvim_buf_get_name(buf) ~= "" and not vim.bo[buf].filetype:find("^snacks_")
+  end,
+  layout = "split",
+  split = {
+    minimap_width = 10,
+    fix_width = true,
+    direction = "right",
+    close_if_last_window = false,
+    persist = true,
+  },
+  diagnostic = { enabled = true },
+  git = { enabled = true },
+  search = { enabled = true },
+  treesitter = { enabled = true },
+  fold = { enabled = true },
+}
+
 -- Version pinning policy:
 --   * `version = "stable"` / `"release"` — moving tag the maintainer updates to
 --     the latest stable release (folke, conform, which-key, gitsigns).
@@ -64,7 +102,7 @@ vim.pack.add({
   { src = "https://github.com/echasnovski/mini.bracketed", version = vim.version.range("0.17.*") },
   { src = "https://github.com/echasnovski/mini.splitjoin", version = vim.version.range("0.17.*") },
   { src = "https://github.com/echasnovski/mini.operators", version = vim.version.range("0.17.*") },
-  { src = "https://github.com/wfxr/minimap.vim" },
+  { src = "https://github.com/Isrothy/neominimap.nvim" },
   { src = "https://github.com/monaqa/dial.nvim" },
   { src = "https://github.com/gbprod/yanky.nvim", version = vim.version.range("2.*") },
   { src = "https://github.com/mrjones2014/smart-splits.nvim" },
